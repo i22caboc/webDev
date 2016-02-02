@@ -286,7 +286,7 @@ exit()
 
 ##Dynamic data in templates
 
-Despite having its own nomenclature, such as naming the callable objects generating the HTTP responses "views", the core Django framework can be seen as MVC. It consists of an object-relational mapper (ORM) which mediates between data models (defined as Python classes) and a relational database ("Model"); a system for processing HTTP requests with a web templating system ("View") and a regular-expression-based URL dispatcher ("Controller").
+*Despite having its own nomenclature, such as naming the callable objects generating the HTTP responses "views", the core Django framework can be seen as MVC. It consists of an object-relational mapper (ORM) which mediates between data models (defined as Python classes) and a relational database ("Model"); a system for processing HTTP requests with a web templating system ("View") and a regular-expression-based URL dispatcher ("Controller").*
 
  We have different pieces in place: the Post model is defined in models.py, we have post_list in views.py and the template added. But how will we actually make our posts appear in our HTML template? (What we want to do is take some content (models saved in the database) and display it nicely in our template).
 
@@ -295,7 +295,7 @@ This is exactly what views are supposed to do: connect models and templates. In 
 Now we have to include in views.py the model we wrote in models.py.
 
 
-QuerySet
+###QuerySet
 You should already be familiar with how QuerySets work. We talked about it in Django ORM (QuerySets) chapter.
 
 So now we want published blog posts sorted by published_date, right? We already did that in QuerySets chapter!
@@ -308,23 +308,23 @@ The last missing part is passing the posts QuerySet to the template. Don't worry
 
 In the render function we already have parameter with request (a request from the Internet) and a template file 'blog/post_list.html'. In last parameter, a dictionary, we can add things for the template to use.
 
-Django templates
+##Django templates
 
 
 Time to display some data! Django gives us some helpful built-in template tags for that.
 
-What are template tags?
+###What are template tags?
 You see, in HTML, you can't really write Python code, because browsers don't understand it. They only know HTML. We know that HTML is rather static, while Python is much more dynamic.
 
 Django template tags allow us to transfer Python-like things into HTML, so you can build dynamic websites faster and easier. Yikes!
 
-Display post list template
+###Display post list template
 In the previous chapter we gave our template a list of posts in the posts variable. Now we will display it in HTML.
 
 To print a variable in Django templates, we use double curly brackets with the variable's name inside, like this:
-
+```python
 {{ posts }}
-
+```
 It works! But we want them to be displayed like the static posts we created earlier in the Introduction to HTML chapter. You can mix HTML and template tags. Our body will look like this:
 ```html
 <div>
@@ -342,11 +342,11 @@ It works! But we want them to be displayed like the static posts we created earl
 Have you noticed that we used a slightly different notation this time {{ post.title }} or {{ post.text }}? We are accessing data in each of the fields defined in our Post model. Also the |linebreaks is piping the posts' text through a filter to convert line-breaks into paragraphs.
 
 
-CSS - make it pretty!
+##CSS - make it pretty!
 
 Our blog still looks pretty ugly, right? Time to make it nice! We will use CSS for that.
 
-Install Bootstrap
+###Install Bootstrap
 To install Bootstrap, you need to add this to your <head> in your .html file (blog/templates/blog/post_list.html):
 ```html
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -354,7 +354,7 @@ To install Bootstrap, you need to add this to your <head> in your .html file (bl
 ```
 This doesn't add any files to your project. It just points to files that exist on the internet. Just go ahead, open your website and refresh the page.
 
-Your first CSS file!
+###Your first CSS file!
 Let's create a CSS file now, to add your own style to your web-page. Create a new directory called css inside your static directory. Then create a new file called blog.css inside blog/static/css directory.
 
 In your blog/static/css/blog.css file you should add the following code:
@@ -366,39 +366,39 @@ h1 a {
 …..
 
 Then, we need to also tell our HTML template that we added some CSS. Open the blog/templates/blog/post_list.html file and add this line at the very beginning of it:
-```
+```python
 {% load staticfiles %}
 ```
 We're just loading static files here :). Between the <head> and </head>, after the links to the Bootstrap CSS files add this line:
-
+```html
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-
+```
 Nice work! Maybe we would also like to give our website a little air and increase the margin on the left side? Let's try this!
-
+```css
 body {
     padding-left: 15px;
 }
-
+```
 Maybe we can customize the font in our header? Paste this into your <head> in blog/templates/blog/post_list.html file:
-
+```html
 <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-
+```
 This line will import a font called Lobster from Google Fonts.
 
 Find the h1 a declaration block (the code between braces { and }) in the CSS file `blog/static/css/blog.css. Now add the line font-family: 'Lobster'; between the braces, and refresh the page:
-
+```css
 h1 a {
     color: #FCA205;
     font-family: 'Lobster';
 }
-
+```
 (Muchas cosas de css en poco tiempo, no se ni como resumir)
 
 
 
 
-Template extending
-Create base template
+##Template extending
+###Create base template
 
 A base template is the most basic template that you extend on every page of your website.
 
