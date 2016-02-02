@@ -22,6 +22,7 @@ Setup a database
 
 ```
 $ python manage.py migrate
+```
 
 Run Server
 
