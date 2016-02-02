@@ -18,22 +18,22 @@ In mysite/settings.py:
 TIME_ZONE = ‘Europe/Berlin'
 STATIC_ROOT = os.path.join(BASE_DIR, ‘static’)
 ```
-Setup a database
+###Setup a database
 
 ```
 $ python manage.py migrate
 ```
 
-Run Server
+###Run Server
 
 ```
 $ python manage.py runserver
 ```
 
 
-Django Models
+##Django Models
 
-Creating an application
+###Creating an application
 
 ```
 $ python manage.py startapp blog
@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'blog',
 )
 ```
-Creating a blog post model
+###Creating a blog post model
 In blog/models.py create a class containing our desired model:
 
 ```python
@@ -72,7 +72,7 @@ class Post(models.Model):
         return self.title
 ```
 
-Create tables for models in your database
+###Create tables for models in your database
 The last step here is to add our new model to our database. First we have to make Django know that we have some changes in our model.
 
 ```
@@ -86,7 +86,7 @@ $ python manage.py migrate blog
 ```
 
 
-Django admin
+##Django admin
 
 
 To add, edit and delete posts we've just modeled, we will use Django admin.
@@ -131,7 +131,7 @@ Now you can log in with the superuser's credentials you chose.
 Go to Posts and experiment a little bit with it. You can now add blog posts.
 
 
-Django urls
+##Django urls
 
 
 We want http://127.0.0.1:8000/  to be a homepage of our blog and display a list of posts.
@@ -142,9 +142,9 @@ Append to urlpatterns in mysite/urls.py:
 ```python
 url(r'', include(‘blog.urls')),
 
-blog.urls
+###blog.urls
 Create a new blog/urls.py empty file. All right! Add these two first lines:
-
+```python
 from django.conf.urls import url
 from . import views
 
@@ -157,14 +157,14 @@ urlpatterns = [
 Now we have to create a view so that we can see something in the browser.
 
 
-Django views
+##Django views
 
 
 A view is a place where we put the "logic" of our application. It will request information from the model you created before and pass it to a template. We'll create a template in the next chapter.
 
 Views are placed in the views.py file. We will add our views to the blog/views.py file.
 
-blog/views.py
+###blog/views.py
 The simplest view can look like this:
 
 ```python
@@ -180,21 +180,21 @@ As you can see, we created a function that takes a request and returns a functio
 
 
 
-Introduction to HTML
+##Introduction to HTML
 
-Templates
+###Templates
 Creating a template means creating a template file.
 Templates are saved in blog/templates/blog directory. So first create a directory called templates inside your blog directory. Then create another directory called blog inside your templates directory.
 (You might wonder why we need two directories both called blog - as you will discover later, this is simply a useful naming convention that makes life easier when things start to get more complicated.)
 And now create a post_list.html file inside the blog/templates/blog directory.
 
 
-Django ORM and QuerySets
+##Django ORM and QuerySets
 
-What is a QuerySet?
+###What is a QuerySet?
 A QuerySet is, in essence, a list of objects of a given Model. QuerySet allows you to read the data from the database, filter it and order it.
 
-Django shell
+###Django shell
 To enter Django’s shell type:
 
 ```
@@ -203,33 +203,33 @@ $ python manage.py shell
 
 You're now in Django's interactive console. It's just like Python prompt but with some additional Django magic :). You can use all the Python commands here too, of course.
 
-All objects
+###All objects
 Let's try to display all of our posts first. You can do that with the following command:
-
+```python
 from blog.models import Post
 Post.objects.all()
-
+```
 It's a list of the posts we created earlier! We created these posts using the Django admin interface. But, now we want to create new posts using Python, so how do we do that?
 
-Create object in the CLI
+###Create object in the CLI
 Let's import User model first:
 ```python
 from django.contrib.auth.models import User
-
+```
 Lets see what users we have in our database and then get an instance of the user:
-
+```python
 User.objects.all()
 me = User.objects.get(username='ola')
-
+```
 Now you can create a new Post object in the database:
-
+```python
 Post.objects.create(author=me, title='Sample title', text='Test')
 ```
 Hurray! Wanna check if it worked?
 ```python
 Post.objects.all()
 ```
-Filter objects
+###Filter objects
 A big part of QuerySets is an ability to filter them. Let's say, we want to find all posts User ola authored. We will use filter instead of all in Post.objects.all(). In parentheses we will state what condition(s) a blog post needs to meet to end up in our queryset. In our situation it is author that is equal to me. The way to write it in Django is: author=me. Now our piece of code looks like this:
 ```python
 Post.objects.filter(author=me)
@@ -257,7 +257,7 @@ Now try to get list of published posts again:
 ```python
 Post.objects.filter(published_date__lte=timezone.now())
 ```
-Ordering objects
+###Ordering objects
 QuerySets also allow you to order the list of objects. Let's try to order them by created_date field:
 ```python
 Post.objects.order_by('created_date')
@@ -272,7 +272,7 @@ Or we can reverse using python’s functions for lists:
 Post.objects.order_by(‘created_date’).reverse()
 ```
 
-Chaining QuerySets
+###Chaining QuerySets
 You can also combine QuerySets by chaining them together:
 ```python
 Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -284,7 +284,7 @@ Cool! You're now ready for the next part! To close the shell, type this:
 exit()
 ```
 
-Dynamic data in templates
+##Dynamic data in templates
 
 Despite having its own nomenclature, such as naming the callable objects generating the HTTP responses "views", the core Django framework can be seen as MVC. It consists of an object-relational mapper (ORM) which mediates between data models (defined as Python classes) and a relational database ("Model"); a system for processing HTTP requests with a web templating system ("View") and a regular-expression-based URL dispatcher ("Controller").
 
