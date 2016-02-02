@@ -35,7 +35,7 @@ Django Models
 
 Creating an application
 
-```bash
+```
 $ python manage.py startapp blog
 ```
 
@@ -213,7 +213,7 @@ It's a list of the posts we created earlier! We created these posts using the Dj
 
 Create object in the CLI
 Let's import User model first:
-
+```python
 from django.contrib.auth.models import User
 
 Lets see what users we have in our database and then get an instance of the user:
@@ -224,27 +224,27 @@ me = User.objects.get(username='ola')
 Now you can create a new Post object in the database:
 
 Post.objects.create(author=me, title='Sample title', text='Test')
-
+```
 Hurray! Wanna check if it worked?
-
+```python
 Post.objects.all()
-
+```
 Filter objects
 A big part of QuerySets is an ability to filter them. Let's say, we want to find all posts User ola authored. We will use filter instead of all in Post.objects.all(). In parentheses we will state what condition(s) a blog post needs to meet to end up in our queryset. In our situation it is author that is equal to me. The way to write it in Django is: author=me. Now our piece of code looks like this:
-
+```python
 Post.objects.filter(author=me)
-
+```
 Or maybe we want to see all the posts that contain a word 'title' in the title field?
-
+```python
 Post.objects.filter(title__contains='title')
-
+```
     There are two underscore characters (_) between title and contains. Django's ORM uses this rule to separate field names ("title") and operations or filters ("contains"). If you only use one underscore, you'll get an error like "FieldError: Cannot resolve keyword title_contains".
 
 You can also get a list of all published posts. We do it by filtering all the posts that have published_date set in the past:
-
+```python
 from django.utils import timezone
 Post.objects.filter(published_date__let=timezone.now())
-
+```
 Unfortunately, the post we added from the Python console is not published yet. We can change that! First get an instance of a post we want to publish:
 ```python
 post = Post.objects.get(title="Sample title")
@@ -280,10 +280,9 @@ Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date
 This is really powerful and lets you write quite complex queries.
 
 Cool! You're now ready for the next part! To close the shell, type this:
-
+```python
 exit()
-
-$
+```
 
 Dynamic data in templates
 
@@ -300,9 +299,9 @@ QuerySet
 You should already be familiar with how QuerySets work. We talked about it in Django ORM (QuerySets) chapter.
 
 So now we want published blog posts sorted by published_date, right? We already did that in QuerySets chapter!
-
+```python
 Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-
+```
 Now we put this piece of code inside the blog/views.py file by adding it to the function def post_list(request).
 
 The last missing part is passing the posts QuerySet to the template. Don't worry we will cover how to display it in a next chapter.
