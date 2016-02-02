@@ -16,9 +16,9 @@ crean en python, así como las relaciones.</span>
 <span class="s1">**Create Project**</span>
 
 <span class="s1"></span>
-'''
+```
 <span class="s1">*\$ django-admin startproject* ***mySite*** *.*</span>
-'''
+```
 <span class="s1"></span>
 
 <span class="s1">**Changing settings**</span>
@@ -28,12 +28,12 @@ crean en python, así como las relaciones.</span>
 <span class="s1">In mysite/settings.py:</span>
 
 <span class="s1"></span>
-'''
+```
 <span class="s1">*TIME\_ZONE = ‘Europe/Berlin'*</span>
 
 <span class="s1">*STATIC\_ROOT = os.path.join(BASE\_DIR,
 ‘static’)*</span>
-'''
+```
 <span class="s1"></span>
 
 <span class="s1">**Setup a database**</span>
