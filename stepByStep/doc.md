@@ -35,7 +35,7 @@ Django Models
 
 Creating an application
 
-```
+```bash
 $ python manage.py startapp blog
 ```
 
