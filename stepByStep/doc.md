@@ -503,7 +503,7 @@ We need to create a file post_edit.html in the blog/templates/blog directory. To
 * we need a Save button. We do that with an HTML button: <button type="submit">Save</button>
 * and finally just after the opening <form ...> tag we need to add {% csrf_token %}. This is very important, since it makes your forms secure! Django will complain if you forget about this bit if you try to save the form:
 
-(Gives an error)
+(Returns an error [expected])
 
 Ok, so let's see how the HTML in post_edit.html should look:
 
@@ -542,7 +542,7 @@ if form.is_valid():
     post.author = request.user
     post.published_date = timezone.now()
     post.save()
-``
+```
 Basically, we have two things here: we save the form with form.save and we add an author (since there was no author field in the PostForm and this field is required!). commit=False means that we don't want to save Post model yet - we want to add author first. Most of the time you will use form.save(), without commit=False, but in this case, we need to do that. post.save() will preserve changes (adding author) and a new blog post is created!
 
 Finally, it would be awesome if we can immediately go to post_detail page for newly created blog post, right? To do that we need one more import:
