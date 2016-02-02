@@ -185,6 +185,22 @@ Templates are saved in blog/templates/blog directory. So first create a director
 (You might wonder why we need two directories both called blog - as you will discover later, this is simply a useful naming convention that makes life easier when things start to get more complicated.)
 And now create a post_list.html file inside the blog/templates/blog directory.
 
+```html
+<html>
+    <head>
+        <title>foo</title>
+    </head>
+
+    <body>
+        <div>
+            <h1>foo></foo>
+        </div>
+        <div>
+            <p>Here goes the text of the page<p>
+        </div>
+    </body>
+</html>
+```
 
 ##Django ORM and QuerySets
 
@@ -344,7 +360,7 @@ Have you noticed that we used a slightly different notation this time {{ post.ti
 Our blog still looks pretty ugly, right? Time to make it nice! We will use CSS for that.
 
 ###Install Bootstrap
-To install Bootstrap, you need to add this to your <head> in your .html file (blog/templates/blog/post_list.html):
+To install Bootstrap, you need to add this to your `<head>` in your .html file (blog/templates/blog/post_list.html):
 ```html
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -366,7 +382,7 @@ Then, we need to also tell our HTML template that we added some CSS. Open the bl
 ```python
 {% load staticfiles %}
 ```
-We're just loading static files here :). Between the <head> and </head>, after the links to the Bootstrap CSS files add this line:
+We're just loading static files here :). Between the `<head>` and `</head>`, after the links to the Bootstrap CSS files add this line:
 ```html
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 ```
@@ -376,7 +392,7 @@ body {
     padding-left: 15px;
 }
 ```
-Maybe we can customize the font in our header? Paste this into your <head> in blog/templates/blog/post_list.html file:
+Maybe we can customize the font in our header? Paste this into your `<head>` in blog/templates/blog/post_list.html file:
 ```html
 <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 ```
@@ -520,7 +536,7 @@ Ok, so let's see how the HTML in post_edit.html should look:
 ```
 
 ###Saving the form
-When we submit the form, we are brought back to the same view, but this time we have some more data in request, more specifically in request.POST (the naming has nothing to do with a blog "post", it's to do with the fact that we're "posting" data). Remember that in the HTML file our <form> definition had the variable method="POST"? All the fields from the form are now in request.POST. You should not rename POST to anything else (the only other valid value for method is GET, but we have no time to explain what the difference is).
+When we submit the form, we are brought back to the same view, but this time we have some more data in request, more specifically in request.POST (the naming has nothing to do with a blog "post", it's to do with the fact that we're "posting" data). Remember that in the HTML file our `<form>` definition had the variable method="POST"? All the fields from the form are now in request.POST. You should not rename POST to anything else (the only other valid value for method is GET, but we have no time to explain what the difference is).
 
 So in our view we have two separate situations to handle. First: when we access the page for the first time and we want a blank form. Second: when we go back to the view with all form's data we just typed. So we need to add a condition (we will use if for that).
 ```python
