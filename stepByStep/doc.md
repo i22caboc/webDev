@@ -402,4 +402,4 @@ h1 a {
 
 A base template is the most basic template that you extend on every page of your website.
 
-Let's create a base.html file in blog/templates/blog/.
+[django template lang documentation](https://docs.djangoproject.com/en/1.7/topics/templates/)
