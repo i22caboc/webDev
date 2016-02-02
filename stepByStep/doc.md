@@ -141,7 +141,7 @@ Append to urlpatterns in mysite/urls.py:
 
 ```python
 url(r'', include(‘blog.urls')),
-```
+``
 ###blog.urls
 Create a new blog/urls.py empty file. All right! Add these two first lines:
 ```python
@@ -238,7 +238,7 @@ Or maybe we want to see all the posts that contain a word 'title' in the title f
 ```python
 Post.objects.filter(title__contains='title')
 ```
-    There are two underscore characters (_) between title and contains. Django's ORM uses this rule to separate field names ("title") and operations or filters ("contains"). If you only use one underscore, you'll get an error like "FieldError: Cannot resolve keyword title_contains".
+There are two underscore characters (_) between title and contains. Django's ORM uses this rule to separate field names ("title") and operations or filters ("contains"). If you only use one underscore, you'll get an error like "FieldError: Cannot resolve keyword title_contains".
 
 You can also get a list of all published posts. We do it by filtering all the posts that have published_date set in the past:
 ```python
