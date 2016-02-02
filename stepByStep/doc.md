@@ -7,19 +7,19 @@ crean en python, así como las relaciones.</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Start & Configuration**</span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Create Project**</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ django-admin startproject* ***mySite*** *.*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">**Changing settings**</span>
 
@@ -38,7 +38,7 @@ crean en python, así como las relaciones.</span>
 
 <span class="s1">**Setup a database**</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py migrate*</span>
 
@@ -46,17 +46,17 @@ crean en python, así como las relaciones.</span>
 
 <span class="s1">**Run Server**</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py runserver*</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Django Models**</span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Creating an application**</span>
 
@@ -71,13 +71,13 @@ crean en python, así como las relaciones.</span>
 
 <span class="s1">*INSTALLED\_APPS = (*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>………*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>………*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>'****blog****',*</span>
 
 <span class="s1">*)*</span>
@@ -89,7 +89,7 @@ crean en python, así como las relaciones.</span>
 <span class="s1">In *blog/models.py* create a class containing our
 desired model:</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*from django.db import models*</span>
 
@@ -99,47 +99,47 @@ desired model:</span>
 
 <span class="s1">*class* ***Post****(models.Model):*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>author
+<span class="s1"></span>author
 = models.ForeignKey('auth.User')*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>title =
+<span class="s1"></span>title =
 models.CharField(max\_length=200)*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>#For
+<span class="s1"></span>#For
 long text without a limit TextField*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>text =
+<span class="s1"></span>text =
 models.TextField()*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>created\_date = models.DateTimeField(*</span>
 
-<span class="s1">*<span class="Apple-converted-space">           
+<span class="s1"></span>           
 </span>default=timezone.now)*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>published\_date = models.DateTimeField(*</span>
 
-<span class="s1">*<span class="Apple-converted-space">           
+<span class="s1"></span>           
 </span>blank=True, null=True)*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>def
+<span class="s1"></span>def
 publish(self):*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>self.published\_date = timezone.now()*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>self.save()*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>def
+<span class="s1"></span>def
 \_\_str\_\_(self):*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>return self.title*</span>
 
 <span class="s1"></span>
@@ -152,7 +152,7 @@ publish(self):*</span>
 database. First we have to make Django know that we have some changes in
 our model.</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py makemigrations blog*</span>
 
@@ -161,15 +161,15 @@ our model.</span>
 <span class="s1">Django prepared for us a migration file that we have to
 apply now to our database.</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py migrate blog*</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Django admin**</span>
 
@@ -191,7 +191,7 @@ content with this:</span>
 
 <span class="s1">*from .models import Post*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*admin.site.register(Post)*</span>
 
@@ -210,7 +210,7 @@ to register the model with admin.site.register(Post).</span>
 <span class="s1">OK, time to look at our Post model. Remember to
 run<span class="Apple-converted-space"> </span></span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py runserver*</span>
 
@@ -219,7 +219,7 @@ run<span class="Apple-converted-space"> </span></span>
 <span class="s1">in the console to run the web server. Go to the browser
 and type the address</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span
 class="s2">[*http://127.0.0.1:8000/admin/*](http://127.0.0.1:8000/admin/)</span>
@@ -231,7 +231,7 @@ class="s2">[*http://127.0.0.1:8000/admin/*](http://127.0.0.1:8000/admin/)</span>
 <span class="s1">To log in, you need to create a superuser. In the
 command-line type:</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py createsuperuser*</span>
 
@@ -250,7 +250,7 @@ can now add blog posts.</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Django urls**</span>
 
@@ -269,7 +269,7 @@ main *mysite/urls.py* file.</span>
 
 <span class="s1">Append to *urlpatterns* in *mysite/urls.py*:</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*url(r'', include(‘blog.urls')),*</span>
 
@@ -286,11 +286,11 @@ these two first lines:</span>
 
 <span class="s1">*from . import views*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*urlpatterns = \[*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>url(r'\^\$', views.post\_list, name='post\_list'),*</span>
 
 <span class="s1">*\]*</span>
@@ -333,7 +333,7 @@ our views to the *blog/views.py* file.</span>
 
 <span class="s1">*def post\_list(request):*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>return
+<span class="s1"></span>return
 render(request, 'blog/post\_list.html', {})*</span>
 
 <span class="s1"></span>
@@ -347,15 +347,15 @@ template *blog/post\_list.html*.</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Introduction to HTML**</span>
 
@@ -381,7 +381,7 @@ complicated.)</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Django ORM and QuerySets**</span>
 
@@ -399,7 +399,7 @@ and order it.</span>
 
 <span class="s1">To enter Django’s shell type:</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*\$ python manage.py shell*</span>
 
@@ -428,7 +428,7 @@ that with the following command:</span>
 these posts using the Django admin interface. But, now we want to create
 new posts using Python, so how do we do that?</span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**Create object in the CLI**</span>
 
@@ -494,13 +494,13 @@ word 'title' in the title field?</span>
 
 <span class="s1"></span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>There
+<span class="s1"></span>There
 are two underscore characters (\_) between title and contains. Django's
 ORM uses this rule to separate field names ("title") and operations or
 filters ("contains"). If you only use one underscore, you'll get an
 error like "FieldError: Cannot resolve keyword title\_contains".*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">You can also get a list of all published posts. We do
 it by filtering all the posts that have *published\_date* set in the
@@ -513,7 +513,7 @@ past:</span>
 <span
 class="s1">*Post.objects.filter(published\_date\_\_let=timezone.now())*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">Unfortunately, the post we added from the Python
 console is not published yet. We can change that! First get an instance
@@ -659,7 +659,7 @@ class="s1">*Post.objects.filter(published\_date\_\_lte=timezone.now()).order\_by
 *blog/views.py* file by adding it to the function *def
 post\_list(request).*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">The last missing part is passing the *posts* QuerySet
 to the template. Don't worry we will cover how to display it in a next
@@ -723,30 +723,30 @@ can mix HTML and template tags. Our *body* will look like this:</span>
 
 <span class="s1">*&lt;div&gt;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>&lt;h1&gt;&lt;a href="/"&gt;Django Girls
 Blog&lt;/a&gt;&lt;/h1&gt;*</span>
 
 <span class="s1">*&lt;/div&gt;*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">*{% for post in posts %}*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>&lt;div&gt;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>&lt;p&gt;published: {{ post.published\_date }}&lt;/p&gt;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>&lt;h1&gt;&lt;a href=""&gt;{{ post.title
 }}&lt;/a&gt;&lt;/h1&gt;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">       
+<span class="s1"></span>       
 </span>&lt;p&gt;{{ post.text|linebreaks }}&lt;/p&gt;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>&lt;/div&gt;*</span>
 
 <span class="s1">*{% endfor %}*</span>
@@ -762,7 +762,7 @@ paragraphs.</span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1">**CSS - make it pretty!**</span>
 
@@ -811,12 +811,12 @@ the following code:</span>
 
 <span class="s1">*h1 a {*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>color:
+<span class="s1"></span>color:
 \#FCA205;*</span>
 
 <span class="s1">*}*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">…..</span>
 
@@ -830,7 +830,7 @@ add this line at the very beginning of it:</span>
 
 <span class="s1">*{% load staticfiles %}*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">We're just loading static files here :). Between the
 *&lt;head&gt;* and *&lt;/head&gt;*, after the links to the Bootstrap CSS
@@ -841,7 +841,7 @@ files add this line:</span>
 <span class="s1">*&lt;link rel="stylesheet" href="{% static
 'css/blog.css' %}"&gt;*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">Nice work! Maybe we would also like to give our website
 a little air and increase the margin on the left side? Let's try
@@ -851,12 +851,12 @@ this!</span>
 
 <span class="s1">*body {*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>padding-left: 15px;*</span>
 
 <span class="s1">*}*</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1">Maybe we can customize the font in our header? Paste
 this into your *&lt;head&gt;* in *blog/templates/blog/post\_list.html*
@@ -884,10 +884,10 @@ page:</span>
 
 <span class="s1">*h1 a {*</span>
 
-<span class="s1">*<span class="Apple-converted-space">    </span>color:
+<span class="s1"></span>color:
 \#FCA205;*</span>
 
-<span class="s1">*<span class="Apple-converted-space">   
+<span class="s1"></span>   
 </span>font-family: 'Lobster';*</span>
 
 <span class="s1">*}*</span>
@@ -897,11 +897,11 @@ page:</span>
 <span class="s1">(Muchas cosas de css en poco tiempo, no se ni como
 resumir)</span>
 
-<span class="s1">**</span>
+<span class="s1"></span>
 
 <span class="s1"></span>
 
-<span class="s1">****</span>
+<span class="s1"></span>
 
 <span class="s1"></span>
 
