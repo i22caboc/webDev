@@ -138,7 +138,7 @@ Append to urlpatterns in mysite/urls.py:
 
 ```python
 url(r'', include(‘blog.urls')),
-``
+```
 ###blog.urls
 Create a new blog/urls.py empty file. All right! Add these two first lines:
 ```python
