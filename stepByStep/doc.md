@@ -40,12 +40,13 @@ $ python manage.py startapp blog
 ```
 
 Now we add our new app to the list of installed apps in mysite/settings.py:
+```python
 INSTALLED_APPS = (
     ………
     ………
     'blog',
 )
-
+```
 Creating a blog post model
 In blog/models.py create a class containing our desired model:
 
