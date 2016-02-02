@@ -506,6 +506,8 @@ We need to create a file post_edit.html in the blog/templates/blog directory. To
 * we need a Save button. We do that with an HTML button: <button type="submit">Save</button>
 * and finally just after the opening <form ...> tag we need to add {% csrf_token %}. This is very important, since it makes your forms secure! Django will complain if you forget about this bit if you try to save the form:
 
+(Gives an error)
+
 Ok, so let's see how the HTML in post_edit.html should look:
 
 ```html
@@ -576,4 +578,92 @@ Let's see if it works. Go to the page http://127.0.0.1:8000/post/new/, add a tit
 ###Form validation
 Now, we will show you how cool Django forms are. A blog post needs to have title and text fields. In our Post model we did not say (as opposed to published_date) that these fields are not required, so Django, by default, expects them to be set.
 
-Try to save the form without title and text. Guess, what will happen!
+Try to save the form without title and text. Guess, what will happen! Django is taking care of validating that all the fields in our form are correct. Isn't it awesome?
+
+###Edit form
+
+Now we know how to add a new form. But what if we want to edit an existing one? It is very similar to what we just did. Let's create some important things quickly (if you don't understand something, you should ask your coach or look at the previous chapters, since we covered all these steps already).
+
+Open blog/templates/blog/post_detail.html and add this line:
+```html
+<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+```
+so that the template will look like:
+```html
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.text|linebreaks }}</p>
+    </div>
+{% endblock %}
+```
+In blog/urls.py we add this line:
+```python
+    url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
+```
+We will reuse the template blog/templates/blog/post_edit.html, so the last missing thing is a view.
+
+Let's open a blog/views.py and add at the very end of the file:
+```python
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_edit.html', {'form': form})
+```
+This looks almost exactly the same as our post_new view, right? But not entirely. First thing: we pass an extra pk parameter from urls. Next: we get the Post model we want to edit with get_object_or_404(Post, pk=pk) and then, when we create a form we pass this post as an instance both when we save the form:
+```python
+form = PostForm(request.POST, instance=post)
+```
+and when we just opened a form with this post to edit:
+```
+form = PostForm(instance=post)
+```
+Ok, let's test if it works! Let's go to post_detail page. There should be an edit button in the top-right corner:
+When you click it you will see the form with our blog post.
+Feel free to change the title or the text and save changes!
+
+###Security
+Being able to create new posts just by clicking a link is awesome! But, right now, anyone that visits your site will be able to post a new blog post and that's probably not something you want. Let's make it so the button shows up for you but not for anyone else.
+
+In blog/templates/blog/base.html, find our page-header div and the anchor tag you put in there earlier. It should look like this:
+```html
+<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+```
+We're going to add another {% if %} tag to this which will make the link only show up for users that are logged into the admin. Right now, that's just you! Change the <a> tag to look like this:
+```html
+{% if user.is_authenticated %}
+    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+{% endif %}
+```
+This {% if %} will cause the link to only be sent to the browser if the user requesting the page is logged in. This doesn't protect the creation of new posts completely, but it's a good first step. We'll cover more security in the extension lessons.
+
+Remember the edit icon we just added to our detail page? We also want to add the same change there, so other people won't be able to edit existing posts.
+
+Open blog/templates/blog/post_detail.html and find:
+```html
+<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+```
+Change it to:
+```html
+{% if user.is_authenticated %}
+    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+{% endif %}
+```
+Since you're likely logged in, if you refresh the page, you won't see anything different. Load the page in a new browser or an incognito window, though, and you'll see that the link doesn't show up, and the icon doesn't display either!
