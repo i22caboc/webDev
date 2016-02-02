@@ -411,11 +411,9 @@ We've already completed all the different steps necessary for the creation of ou
 
 The first thing we need in our blog is, obviously, a page to display one post, right?
 We already have a Post model, so we don't need to add anything to models.py.
+[django-girls tutorial](http://tutorial.djangogirls.org/en/extend_your_application/index.html)
 
 ##Create a template link to a post's detail
-
-
-
 ##Django Forms
 The final thing we want to do on our website is create a way to add and edit blog posts. With forms we will have absolute power over our interface - we can do almost anything we can imagine!
 
