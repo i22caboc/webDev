@@ -1,0 +1,11 @@
+{% extends 'uBlog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+    <div>
+        <h4>{{ post.author }}</h4>
+        <h5>{{ post.date }}</h4>
+        <p>{{ post.text|linebreaks }}
+    </div>
+    {% endfor %}
+{% endblock %}
