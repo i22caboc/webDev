@@ -7,6 +7,7 @@
 ##Start & Configuration
 
 ###Create Project
+
 ```
 $ django-admin startproject mySite .
 ```
@@ -19,18 +20,23 @@ STATIC_ROOT = os.path.join(BASE_DIR, ‘static’)
 ```
 Setup a database
 
+```
 $ python manage.py migrate
 
 Run Server
 
+```
 $ python manage.py runserver
+```
 
 
 Django Models
 
 Creating an application
 
+```
 $ python manage.py startapp blog
+```
 
 Now we add our new app to the list of installed apps in mysite/settings.py:
 INSTALLED_APPS = (
@@ -42,6 +48,7 @@ INSTALLED_APPS = (
 Creating a blog post model
 In blog/models.py create a class containing our desired model:
 
+```python
 from django.db import models
 from django.utils import timezone
 
@@ -61,17 +68,20 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
+```
 
 Create tables for models in your database
 The last step here is to add our new model to our database. First we have to make Django know that we have some changes in our model.
 
+```
 $ python manage.py makemigrations blog
+```
 
 Django prepared for us a migration file that we have to apply now to our database.
 
+```
 $ python manage.py migrate blog
-
+```
 
 
 Django admin
@@ -81,27 +91,37 @@ To add, edit and delete posts we've just modeled, we will use Django admin.
 
 Let's open the blog/admin.py file and replace its content with this:
 
+```python
 from django.contrib import admin
 from .models import Post
 
 admin.site.register(Post)
+```
 
 As you can see, we import the Post model defined in the previous chapter. To make our model visible on the admin page, we need to register the model with admin.site.register(Post).
 
+```
 python manage.py runserver
+```
 
 OK, time to look at our Post model. Remember to run 
 
+```
 $ python manage.py runserver
+```
 
 in the console to run the web server. Go to the browser and type the address
 
+```
 http://127.0.0.1:8000/admin/
+```
 
 You will see the login page.
 To log in, you need to create a superuser. In the command-line type:
 
+```
 $ python manage.py createsuperuser
+```
 
 When prompted, type your username, email address, and password.
 Now you can log in with the superuser's credentials you chose.
@@ -117,6 +137,7 @@ We will import urls from our blog application to the main mysite/urls.py file.
 
 Append to urlpatterns in mysite/urls.py:
 
+```python
 url(r'', include(‘blog.urls')),
 
 blog.urls
@@ -128,6 +149,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
 ]
+```
 (There’s something weird here, in mysite/urls instead of a list the url function is inside a patterns() function )
 
 Now we have to create a view so that we can see something in the browser.
@@ -143,8 +165,10 @@ Views are placed in the views.py file. We will add our views to the blog/views.p
 blog/views.py
 The simplest view can look like this:
 
+```python
 def post_list(request):
     return render(request, 'blog/post_list.html', {})
+```
 
 As you can see, we created a function that takes a request and returns a function render that will render our template blog/post_list.html.
 
@@ -171,7 +195,9 @@ A QuerySet is, in essence, a list of objects of a given Model. QuerySet allows y
 Django shell
 To enter Django’s shell type:
 
+```
 $ python manage.py shell
+```
 
 You're now in Django's interactive console. It's just like Python prompt but with some additional Django magic :). You can use all the Python commands here too, of course.
 
@@ -218,40 +244,43 @@ from django.utils import timezone
 Post.objects.filter(published_date__let=timezone.now())
 
 Unfortunately, the post we added from the Python console is not published yet. We can change that! First get an instance of a post we want to publish:
-
+```python
 post = Post.objects.get(title="Sample title")
-
+```
 And then publish it with our publish method!
-
+```python
 post.publish()
-
+```
 Now try to get list of published posts again:
-
+```python
 Post.objects.filter(published_date__lte=timezone.now())
-
+```
 Ordering objects
 QuerySets also allow you to order the list of objects. Let's try to order them by created_date field:
-
+```python
 Post.objects.order_by('created_date')
-
+```
 We can also reverse the ordering by adding - at the beginning:
 
+```python
 Post.objects.order_by(‘-created_date')
-
+```
 Or we can reverse using python’s functions for lists:
+```python
 Post.objects.order_by(‘created_date’).reverse()
-
+```
 
 Chaining QuerySets
 You can also combine QuerySets by chaining them together:
-
+```python
 Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-
+```
 This is really powerful and lets you write quite complex queries.
 
 Cool! You're now ready for the next part! To close the shell, type this:
 
 exit()
+
 $
 
 Dynamic data in templates
@@ -296,7 +325,7 @@ To print a variable in Django templates, we use double curly brackets with the v
 {{ posts }}
 
 It works! But we want them to be displayed like the static posts we created earlier in the Introduction to HTML chapter. You can mix HTML and template tags. Our body will look like this:
-
+```html
 <div>
     <h1><a href="/">Django Girls Blog</a></h1>
 </div>
@@ -308,7 +337,7 @@ It works! But we want them to be displayed like the static posts we created earl
         <p>{{ post.text|linebreaks }}</p>
     </div>
 {% endfor %}
-
+```
 Have you noticed that we used a slightly different notation this time {{ post.title }} or {{ post.text }}? We are accessing data in each of the fields defined in our Post model. Also the |linebreaks is piping the posts' text through a filter to convert line-breaks into paragraphs.
 
 
@@ -318,27 +347,27 @@ Our blog still looks pretty ugly, right? Time to make it nice! We will use CSS f
 
 Install Bootstrap
 To install Bootstrap, you need to add this to your <head> in your .html file (blog/templates/blog/post_list.html):
-
+```html
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+```
 This doesn't add any files to your project. It just points to files that exist on the internet. Just go ahead, open your website and refresh the page.
 
 Your first CSS file!
 Let's create a CSS file now, to add your own style to your web-page. Create a new directory called css inside your static directory. Then create a new file called blog.css inside blog/static/css directory.
 
 In your blog/static/css/blog.css file you should add the following code:
-
+```css
 h1 a {
     color: #FCA205;
 }
-
+```
 …..
 
 Then, we need to also tell our HTML template that we added some CSS. Open the blog/templates/blog/post_list.html file and add this line at the very beginning of it:
-
+```
 {% load staticfiles %}
-
+```
 We're just loading static files here :). Between the <head> and </head>, after the links to the Bootstrap CSS files add this line:
 
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
