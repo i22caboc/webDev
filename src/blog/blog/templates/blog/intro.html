@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<html>
+	<head>
+		<title>Carlos' Blog</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+		<link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		<div class="page-header">
+			<h1><a href="">Carlos' blog</a></h1>
+		</div>
+
+		<div class="Intro">
+			<h2>Hello, World!</h2>
+			<p>So... This is my first html page where I write something meaningful. (Not really, but.. you get it).</p><br />
+		</div>
+
+		<h2>This is the list of <a href="/post_list.html">posts</a>:</h2>
+		<ul>
+		<div class="content container">
+		    <div class="row">
+		        <div class="col-md-8">
+		            {% for post in posts %}
+	                	<li>
+		                    <p>{{ post.title }}</p>
+		                    <p>published: {{ post.published_date }}</p>
+	                	</li>
+		            {% endfor %}
+		        </div>
+		    </div>
+		</div>
+	</ul>
+
+	</br>
+
+		<div class="daily-haiku">
+			<h4>Haiku Of the Day</h4>
+			<p>I'm writing something</p>
+			<p>And don't know what to say</p>
+			<p>so I'll stop rambling...</p>
+			<p> Have a good day!</p></br>
+		</div>
+	</body>
+</html>
