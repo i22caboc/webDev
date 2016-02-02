@@ -11,7 +11,7 @@ $ django-admin startproject mySite .
 ###Changing settings
 
 In mysite/settings.py:
-```
+```python
 TIME_ZONE = ‘Europe/Berlin'
 STATIC_ROOT = os.path.join(BASE_DIR, ‘static’)
 ```
@@ -111,9 +111,9 @@ $ python manage.py runserver
 
 in the console to run the web server. Go to the browser and type the address
 
-```
+
 http://127.0.0.1:8000/admin/
-```
+
 
 You will see the login page.
 To log in, you need to create a superuser. In the command-line type:
