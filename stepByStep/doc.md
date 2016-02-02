@@ -1,6 +1,3 @@
-(Los objetos de la base de datos se llaman modelo y se crean en python, así como las relaciones.
-)
-
 #Create a Django Project
 
 
