@@ -1,0 +1,12 @@
+{% extends "uBlog/base.html" %}
+
+{% block content %}
+	<p>Share your thoughts or feelings:</p>
+	<form method="POST" class="post-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="controls">
+	                <button type="submit" class="btn">Share</button>
+	    </div>
+	</form>
+{% endblock %}

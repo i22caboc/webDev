@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/uBlog.css' %}">
-        <title><a href="/">uBlog</a></title>
+        <title>uBlog</title>
     </head>
 
     <body>
@@ -15,7 +15,8 @@
             <div class="session-options">
                 {% if user.is_authenticated %}
                     <p>Welcome, {{ user.get_username }}.</p>
-                    <span><a href="">blog</a></span>
+                    <span><a href="/post_list/">home</a></span>
+                    <span><a href="/post/">blog</a></span>
                     <span><a href="/logout/">logout.</a></span>
                 {% else %}
                     <span><a href="/login/">login</a></span>
